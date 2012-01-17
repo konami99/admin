@@ -38,12 +38,12 @@
 | the active record class
 */
 
-$active_group = 'www';
+$active_group = 'news';
 $active_record = TRUE;
 
 
 
-
+/*
 $db['www']['hostname'] = '127.0.0.1';
 $db['www']['username'] = 'root';
 $db['www']['password'] = 'fdnq4u3A';
@@ -59,7 +59,7 @@ $db['www']['dbcollat'] = 'utf8_general_ci';
 $db['www']['swap_pre'] = '';
 $db['www']['autoinit'] = TRUE;
 $db['www']['stricton'] = FALSE;
-
+*/
 $db['news']['hostname'] = '127.0.0.1';
 $db['news']['username'] = 'root';
 $db['news']['password'] = 'fdnq4u3A';

@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://admin.local:8081/';
+$config['base_url']	= 'http://admin.local/';
 
 /*
 |--------------------------------------------------------------------------
