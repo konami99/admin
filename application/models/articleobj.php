@@ -22,8 +22,8 @@ class ArticleObj extends CI_Model
 			'NameSpace'=>$this->input->post('namespace'),
 			'FeatureStartDate'=>$this->mySQLDateFormat($this->input->post('featureStartDate')),
 			'FeatureEndDate'=>$this->mySQLDateFormat($this->input->post('featureEndDate')),
-			'StartDate'=>$this->mySQLDateFormat($this->input->post('startDate')),
-			'EndDate'=>$this->mySQLDateFormat($this->input->post('endDate')),
+			'SubFeatureStartDate'=>$this->mySQLDateFormat($this->input->post('subFeatureStartDate')),
+			'SubFeatureEndDate'=>$this->mySQLDateFormat($this->input->post('subFeatureEndDate')),
 			'Summary'=>$this->input->post('summary'),
 			'Content'=>$this->input->post('content')
     	);
@@ -49,8 +49,8 @@ class ArticleObj extends CI_Model
 			'NameSpace'=>$this->input->post('namespace'),
 			'FeatureStartDate'=>$this->mySQLDateFormat($this->input->post('featureStartDate')),
 			'FeatureEndDate'=>$this->mySQLDateFormat($this->input->post('featureEndDate')),
-			'StartDate'=>$this->mySQLDateFormat($this->input->post('startDate')),
-			'EndDate'=>$this->mySQLDateFormat($this->input->post('endDate')),
+			'SubFeatureStartDate'=>$this->mySQLDateFormat($this->input->post('subFeatureStartDate')),
+			'SubFeatureEndDate'=>$this->mySQLDateFormat($this->input->post('subFeatureEndDate')),
 			'Summary'=>$this->input->post('summary'),
 			'Content'=>$this->input->post('content')
 		);

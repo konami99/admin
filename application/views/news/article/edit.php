@@ -58,24 +58,24 @@
                 	$featureEndDate = substr($queryResult->row()->FeatureEndDate, 5, 2) . '/' . substr($queryResult->row()->FeatureEndDate, 8, 2) . '/' . substr($queryResult->row()->FeatureEndDate, 0, 4);
                 }
 
-                if(strcmp($queryResult->row()->StartDate, "")==0){
-                	$startDate = "";
+                if(strcmp($queryResult->row()->SubFeatureStartDate, "")==0){
+                	$subFeatureStartDate = "";
                 }
                 else{           
-                	$startDate = substr($queryResult->row()->StartDate, 5, 2) . '/' . substr($queryResult->row()->StartDate, 8, 2) . '/' . substr($queryResult->row()->StartDate, 0, 4);
+                	$subFeatureStartDate = substr($queryResult->row()->SubFeatureStartDate, 5, 2) . '/' . substr($queryResult->row()->SubFeatureStartDate, 8, 2) . '/' . substr($queryResult->row()->SubFeatureStartDate, 0, 4);
                 }
                 
-                if(strcmp($queryResult->row()->EndDate, "")==0){
-                	$endDate = "";
+                if(strcmp($queryResult->row()->SubFeatureEndDate, "")==0){
+                	$subFeatureEndDate = "";
                 }
                 else{
-                	$endDate = substr($queryResult->row()->EndDate, 5, 2) . '/' . substr($queryResult->row()->EndDate, 8, 2) . '/' . substr($queryResult->row()->EndDate, 0, 4);
+                	$subFeatureEndDate = substr($queryResult->row()->SubFeatureEndDate, 5, 2) . '/' . substr($queryResult->row()->SubFeatureEndDate, 8, 2) . '/' . substr($queryResult->row()->SubFeatureEndDate, 0, 4);
                 }
                 
                 echo 'Feature Start Date:', form_input(array('id'=>'featureStartDate','name'=>'featureStartDate','value'=>$featureStartDate)), br();
                 echo 'Feature End Date:', form_input(array('id'=>'featureEndDate','name'=>'featureEndDate','value'=>$featureEndDate)), br();
-                echo 'Start Date:', form_input(array('id'=>'startDate','name'=>'startDate','value'=>$startDate)), br();
-                echo 'End Date:', form_input(array('id'=>'endDate','name'=>'endDate','value'=>$endDate)), br();
+                echo 'SubFeature Start Date:', form_input(array('id'=>'subFeatureStartDate','name'=>'subFeatureStartDate','value'=>$subFeatureStartDate)), br();
+                echo 'SubFeature End Date:', form_input(array('id'=>'subFeatureEndDate','name'=>'subFeatureEndDate','value'=>$subFeatureEndDate)), br();
                 echo 'Summary:', form_textarea(array('name'=>'summary','value'=>$queryResult->row()->Summary)), br();
                 echo 'Content:', form_textarea(array('name'=>'content','value'=>$queryResult->row()->Content)), br();
              	?>
@@ -92,8 +92,8 @@
     $(function(){
     	$( "#featureStartDate" ).datepicker();
     	$( "#featureEndDate" ).datepicker();
-    	$( "#startDate" ).datepicker();
-    	$( "#endDate" ).datepicker();
+    	$( "#subFeatureStartDate" ).datepicker();
+    	$( "#subFeatureEndDate" ).datepicker();
     	CKEDITOR.replace( 'summary' );
     	CKEDITOR.replace( 'content' );
     });

@@ -42,8 +42,8 @@
                 <?php
                 echo 'Feature Start Date:', form_input(array('id'=>'featureStartDate','name'=>'featureStartDate','value'=>'')), br();
                 echo 'Feature End Date:', form_input(array('id'=>'featureEndDate','name'=>'featureEndDate','value'=>'')), br();
-                echo 'Start Date:', form_input(array('id'=>'startDate','name'=>'startDate','value'=>'')), br();
-                echo 'End Date:', form_input(array('id'=>'endDate','name'=>'endDate','value'=>'')), br();
+                echo 'SubFeature Start Date:', form_input(array('id'=>'subFeatureStartDate','name'=>'subFeatureStartDate','value'=>'')), br();
+                echo 'SubFeature End Date:', form_input(array('id'=>'subFeatureEndDate','name'=>'subFeatureEndDate','value'=>'')), br();
                 echo 'Summary:', form_textarea(array('name'=>'summary','value'=>'')), br();
                 echo 'Content:', form_textarea(array('name'=>'content','value'=>'')), br();
              	?>
