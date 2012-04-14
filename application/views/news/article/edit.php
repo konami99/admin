@@ -87,10 +87,10 @@
 		echo 'Content:', form_textarea(array('name'=>'content','value'=>$queryResult->row()->Content)), br();
 	?>
 	</p>
-		<span class="item-text" style="width:600px;">
-			<div id="previewblock" style="display: block; visibility: visible; ">
+		<span class="item-text">
+			<div id="previewblock" style="display: block; visibility: visible; width:600px;">
 				<div id="imagepreview" style="height: 150px; overflow-x: scroll; overflow-y: scroll; ">
-					<ul style="list-style: none;">
+					<ul style="list-style: none; padding: 0; margin: 0;">
 						<li id="thumb" style="float: left; margin: 3px;">
 							<img src="http://download.mobile01.com/thumb/attach/201204/mobile01-859229f23f00cb1923b9d4b9bf56c953.jpg" border="0" alt="" onclick="addimg('http://attach.mobile01.com/attach/201204/mobile01-859229f23f00cb1923b9d4b9bf56c953.jpg');" style="cursor:pointer;">
 						</li>
