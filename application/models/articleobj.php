@@ -12,6 +12,14 @@ class ArticleObj extends CI_Model
 	}
 	function update()
 	{
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+		
+		$this->load->library('upload', $config);
+		
 		$articleID = $this->uri->segment(3);
     	
     	$data = array(
@@ -29,6 +37,15 @@ class ArticleObj extends CI_Model
     	);
     	$this->newsdb->where('ArticleID', $articleID);
     	$this->newsdb->update('articles', $data);
+    	
+    	if(! $this->upload->do_upload("image1")){
+    		echo $this->upload->display_errors();
+    		exit();
+    	}
+    	$uploadData = $this->upload->data();
+    	
+    	var_dump($uploadData);exit();
+    	
 	}
 	function findAllArticles()
 	{

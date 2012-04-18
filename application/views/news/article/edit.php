@@ -7,7 +7,7 @@
                     
 	</div>
 	
-	<?php echo form_open('article/update/' . $this->uri->segment(3)); ?>
+	<?php echo form_open_multipart('article/update/' . $this->uri->segment(3)); ?>
 	
 	<p>
 	
@@ -106,7 +106,10 @@
 		</span>
 	<p>
 	<?php
-		echo  form_submit('updateButton', 'Save');
+		
+		echo form_input(array('type'=>'file', 'name'=>'image1')), br();
+	
+		echo form_submit('updateButton', 'Save');
 		
 	?>
 	</p>
