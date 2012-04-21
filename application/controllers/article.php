@@ -98,13 +98,15 @@ class Article extends CI_Controller {
     				//var_dump($albumEntry);exit(0);
     	
     				$mediaContentArray = $albumEntry->getMediaGroup()->getContent();
-    				$contentUrl = $mediaContentArray[0]->getUrl();
+    				$normalSizeImage = $mediaContentArray[0]->getUrl();
     				
-    				$s = $albumEntry->getMediaGroup()->getThumbnail();
+    				$t = $albumEntry->getMediaGroup()->getThumbnail();
+    				$thumbnailImage = $t[0]->getUrl();
     				
     				//var_dump($s[0]->getUrl());exit();
     				
-    				$imageArray[] = $s[0]->getUrl();
+    				$normalSizeImageArray[] = $normalSizeImage;
+    				$thumbnailImageArray[] = $thumbnailImage;
     				//var_dump($contentUrl);
     			}
     			
@@ -130,8 +132,8 @@ class Article extends CI_Controller {
     	
     	//var_dump($imageArray);exit();
     	
-    	
-    	$data['contentData']['imageArray'] = $imageArray;
+    	$data['contentData']['normalSizeImageArray'] = $normalSizeImageArray;
+    	$data['contentData']['thumbnailImageArray'] = $thumbnailImageArray;
     	
     	$this->template->load('layout', 'news/layout', $data);
     }

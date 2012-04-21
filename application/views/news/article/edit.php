@@ -100,7 +100,7 @@
 						</li>
 						-->
 						<?php 
-						foreach($imageArray AS $image){
+						foreach($thumbnailImageArray AS $image){
 						?>	
 						<li class="preview" style="float: left; margin: 3px;">
 						<img src="<?php echo $image ?>" border="0" alt="" style="cursor:pointer;">
