@@ -47,6 +47,92 @@ class Article extends CI_Controller {
     	$data['contentData']['allAuthors'] = $this->AuthorObj->findAllAuthors();
     	$data['contentData']['allCategories'] = $this->CategoryObj->findAllCategories();
     	$data['innerContents'] = 'news/article/edit';
+    	
+    	
+    	$CI =& get_instance();
+    	$CI->load->library('zend');
+    	$CI->zend->load('Zend/Gdata/Photos');
+    	$CI->zend->load('Zend/Gdata/Photos/AlbumQuery');
+    	$CI->zend->load('Zend/Gdata/Photos/AlbumFeed');
+    	$CI->zend->load('Zend/Gdata/App/HttpException');
+    	$CI->zend->load('Zend/Gdata/App/Exception');
+    	$CI->zend->load('Zend/Gdata/ClientLogin');
+    	
+    	
+    	//$this->ZendGdata = new Zend_Gdata();
+    	
+    	//exit();
+    	
+    	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
+    	$user = "konami99@gmail.com";
+    	$pass = "fdnq4u3a";
+    	
+    	
+    	
+    	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
+    	$gp = new Zend_Gdata_Photos($client, "Google-DevelopersGuide-1.0");
+    	
+    	
+    	//exit();
+    	
+    	//$gp->enableRequestDebugLogging('d:\gp_requests.log');
+    	
+    	try {
+    		//$userFeed = $gp->getuserFeed("default");
+    		//foreach ($userFeed as $userEntry){
+    		//	echo $userEntry->title->text . $userEntry->id->text . "<br/>\n";
+    			//}
+    	
+    			//exit(0);
+    				
+    			$query = new Zend_Gdata_Photos_AlbumQuery();
+    				
+    			$query->setUser("konami99@gmail.com");
+    			$query->setThumbsize ("104");
+    			$query->setAlbumName("auburn");
+    			//$query->setAlbumId("5620271770485001921");
+    				
+    			$albumFeed = $gp->getAlbumFeed($query);
+    			foreach ($albumFeed as $albumEntry) {
+    				//echo $albumEntry->title->text . " " . $albumEntry->getGphotoId()->getText() ."<br />\n";
+    				//var_dump($albumEntry);exit(0);
+    	
+    				$mediaContentArray = $albumEntry->getMediaGroup()->getContent();
+    				$contentUrl = $mediaContentArray[0]->getUrl();
+    				
+    				$s = $albumEntry->getMediaGroup()->getThumbnail();
+    				
+    				//var_dump($s[0]->getUrl());exit();
+    				
+    				$imageArray[] = $s[0]->getUrl();
+    				//var_dump($contentUrl);
+    			}
+    			
+    			//exit(0);
+    			
+    	}
+    	catch (Zend_Gdata_App_HttpException $e) {
+    		echo "Error: " . $e->getMessage() . "<br />\n";
+    		if ($e->getResponse() != null) {
+    			echo "Body: <br />\n" . $e->getResponse()->getBody() .
+    			             "<br />\n"; 
+    		}
+    		// In new versions of Zend Framework, you also have the option
+    		// to print out the request that was made.  As the request
+    		// includes Auth credentials, it's not advised to print out
+    		// this data unless doing debugging
+    		// echo "Request: <br />\n" . $e->getRequest() . "<br />\n";
+    	}
+    	catch (Zend_Gdata_App_Exception $e) {
+    		echo "Error: " . $e->getMessage() . "<br />\n";
+    	}
+    	//exit(0);
+    	
+    	//var_dump($imageArray);exit();
+    	
+    	
+    	$data['contentData']['imageArray'] = $imageArray;
+    	
     	$this->template->load('layout', 'news/layout', $data);
     }
  	function update()
