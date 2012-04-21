@@ -100,10 +100,10 @@
 						</li>
 						-->
 						<?php 
-						foreach($thumbnailImageArray AS $image){
+						for($i=0; $i<count($normalSizeImageArray); $i++){
 						?>	
-						<li class="preview" style="float: left; margin: 3px;">
-						<img src="<?php echo $image ?>" border="0" alt="" style="cursor:pointer;">
+						<li class="preview" style="float: left; margin: 3px;" onClick="insertImage('<?php echo $normalSizeImageArray[$i]; ?>');">
+						<img src="<?php echo $thumbnailImageArray[$i]; ?>" border="0" alt="" style="cursor:pointer;">
 						</li>
 
 						<?php
@@ -142,15 +142,20 @@
 		//onclick="addimg('http://attach.mobile01.com/attach/201204/mobile01-859229f23f00cb1923b9d4b9bf56c953.jpg');"
 		//onclick="addimg('http://attach.mobile01.com/attach/201204/mobile01-1ccf05eb8f9a3439de9286532e8f5665.jpg');"
 
-		$(".preview").click(function(){
+		//$(".preview").click(function(){
 
 			//alert('1');
 
-			CKEDITOR.instances.content.insertHtml('<img src="https://lh4.googleusercontent.com/-3a4pZasg1bI/TxKsNh93QII/AAAAAAAAAxk/kVal4EKfcEA/s800/IMG_20120102_121347.png" />');
+			//CKEDITOR.instances.content.insertHtml('<img src="https://lh4.googleusercontent.com/-3a4pZasg1bI/TxKsNh93QII/AAAAAAAAAxk/kVal4EKfcEA/s800/IMG_20120102_121347.png" />');
 			
-		});
+		//});
 
     	
     });
 
+
+	function insertImage(image){
+
+		CKEDITOR.instances.content.insertHtml("<img src='" +image + "' /> ");
+	}
 </script>
