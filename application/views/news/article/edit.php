@@ -119,7 +119,7 @@
 	<p>
 	<?php
 		
-		echo form_input(array('type'=>'file', 'name'=>'image1')), br();
+		echo "HeroImage ", form_input(array('type'=>'file', 'name'=>'heroimage')), br();
 	
 		echo form_submit('updateButton', 'Save');
 		

@@ -12,7 +12,7 @@ class ArticleObj extends CI_Model
 	}
 	function update()
 	{
-		$config['upload_path'] = './uploads/';
+		$config['upload_path'] = './files/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '100';
 		$config['max_width']  = '1024';
@@ -38,14 +38,114 @@ class ArticleObj extends CI_Model
     	$this->newsdb->where('ArticleID', $articleID);
     	$this->newsdb->update('articles', $data);
     	
-    	if(! $this->upload->do_upload("image1")){
+    	if(! $this->upload->do_upload("heroimage")){
     		echo $this->upload->display_errors();
     		exit();
     	}
     	$uploadData = $this->upload->data();
     	
-    	var_dump($uploadData);exit();
+    	//var_dump($uploadData);exit();
     	
+    	//check if album is created
+    	$CI =& get_instance();
+    	$CI->load->library('zend');
+    	$CI->zend->load('Zend/Gdata/Photos');
+    	$CI->zend->load('Zend/Gdata/Photos/AlbumQuery');
+    	$CI->zend->load('Zend/Gdata/Photos/AlbumFeed');
+    	$CI->zend->load('Zend/Gdata/App/HttpException');
+    	$CI->zend->load('Zend/Gdata/App/Exception');
+    	$CI->zend->load('Zend/Gdata/ClientLogin');
+    	 
+    	 
+    	//$this->ZendGdata = new Zend_Gdata();
+    	 
+    	//exit();
+    	 
+    	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
+    	$user = "";
+    	$pass = "";
+    	 
+    	 
+    	 
+    	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
+    	$gp = new Zend_Gdata_Photos($client, "Google-DevelopersGuide-1.0");
+    	
+    	
+    	try {
+    		    	
+    		$query = new Zend_Gdata_Photos_AlbumQuery();
+    	
+    		$query->setUser("");
+    		$query->setThumbsize ("104");
+    		$query->setAlbumName("article" + $articleID);
+    		//$query->setAlbumId("5620271770485001921");
+    	
+    		$albumFeed = $gp->getAlbumFeed($query);
+    		
+    		
+    		var_dump($albumFeed);exit();
+    		
+    		foreach ($albumFeed as $albumEntry) {
+    			//echo $albumEntry->title->text . " " . $albumEntry->getGphotoId()->getText() ."<br />\n";
+    			//var_dump($albumEntry);exit(0);
+    			 
+    			$mediaContentArray = $albumEntry->getMediaGroup()->getContent();
+    			$normalSizeImage = $mediaContentArray[0]->getUrl();
+    	
+    			$t = $albumEntry->getMediaGroup()->getThumbnail();
+    			$thumbnailImage = $t[0]->getUrl();
+    	
+    			//var_dump($s[0]->getUrl());exit();
+    	
+    			$normalSizeImageArray[] = $normalSizeImage;
+    			$thumbnailImageArray[] = $thumbnailImage;
+    			//var_dump($contentUrl);
+    		}
+    		 
+    		//exit(0);
+    		 
+    	}
+    	catch (Zend_Gdata_App_HttpException $e) {
+    		
+    		if (strpos($e->getMessage(), 'No album found') !== false) {
+    			//create album
+    			//$service = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
+    			//$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
+    			//$service = new Zend_Gdata_Photos($client);
+    			
+    			
+    			echo "here";
+    			
+    			$entry = new Zend_Gdata_Photos_AlbumEntry();
+    			$entry->setTitle($gp->newTitle("article" . $articleID));
+    			 
+    			$gp->insertAlbumEntry($entry);
+    			//insert image
+    		
+    			echo "done";
+    		}
+    		
+    		
+    		/*
+    		echo "Error: " . $e->getMessage() . "<br />\n";
+    		if ($e->getResponse() != null) {
+    			echo "Body: <br />\n" . $e->getResponse()->getBody() .
+    	    			             "<br />\n"; 
+    		}
+    		*/
+    	}
+    	catch (Zend_Gdata_App_Exception $e) {
+    		echo "Error: " . $e->getMessage() . "<br />\n";
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	var_dump($uploadData);exit();
+    	exit();
 	}
 	function findAllArticles()
 	{
