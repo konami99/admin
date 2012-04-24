@@ -98,6 +98,9 @@ class Article extends CI_Controller {
     				//var_dump($albumEntry);exit(0);
     	
     				$mediaContentArray = $albumEntry->getMediaGroup()->getContent();
+    				
+    				var_dump($albumEntry->getMediaGroup()->getTitle()->getText());exit();
+    				
     				$normalSizeImage = $mediaContentArray[0]->getUrl();
     				
     				$t = $albumEntry->getMediaGroup()->getThumbnail();
