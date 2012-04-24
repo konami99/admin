@@ -12,7 +12,15 @@ class ArticleObj extends CI_Model
 	}
 	function update()
 	{
-		$config['upload_path'] = './files/';
+		
+		
+		
+		
+		$articleID = $this->uri->segment(3);
+		
+		mkdir('./files/article' . $articleID);
+		
+		$config['upload_path'] = './files/article' . $articleID;
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '100';
 		$config['max_width']  = '1024';
@@ -20,7 +28,7 @@ class ArticleObj extends CI_Model
 		
 		$this->load->library('upload', $config);
 		
-		$articleID = $this->uri->segment(3);
+		
     	
     	$data = array(
     		'Title'=>$this->input->post('title'),
@@ -35,14 +43,9 @@ class ArticleObj extends CI_Model
 			'Summary'=>$this->input->post('summary'),
 			'Content'=>$this->input->post('content')
     	);
-    	$this->newsdb->where('ArticleID', $articleID);
-    	$this->newsdb->update('articles', $data);
     	
-    	if(! $this->upload->do_upload("heroimage")){
-    		echo $this->upload->display_errors();
-    		exit();
-    	}
-    	$uploadData = $this->upload->data();
+    	
+    	
     	
     	//var_dump($uploadData);exit();
     	
@@ -56,57 +59,29 @@ class ArticleObj extends CI_Model
     	$CI->zend->load('Zend/Gdata/App/Exception');
     	$CI->zend->load('Zend/Gdata/ClientLogin');
     	 
-    	 
-    	//$this->ZendGdata = new Zend_Gdata();
-    	 
-    	//exit();
-    	 
     	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
-    	$user = "";
-    	$pass = "";
+    	$user = "konami99@gmail.com";
+    	$pass = "fdnq4u3a";
     	 
     	 
     	 
     	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
-    	$gp = new Zend_Gdata_Photos($client, "Google-DevelopersGuide-1.0");
+    	$gp = new Zend_Gdata_Photos($client);
     	
     	
     	try {
     		    	
     		$query = new Zend_Gdata_Photos_AlbumQuery();
     	
-    		$query->setUser("");
-    		$query->setThumbsize ("104");
-    		$query->setAlbumName("article" + $articleID);
-    		//$query->setAlbumId("5620271770485001921");
+    		$query->setUser("konami99@gmail.com");
+    		//$query->setThumbsize ("104");
+    		$query->setAlbumName("article" . $articleID);
     	
     		$albumFeed = $gp->getAlbumFeed($query);
-    		
-    		
-    		var_dump($albumFeed);exit();
-    		
-    		foreach ($albumFeed as $albumEntry) {
-    			//echo $albumEntry->title->text . " " . $albumEntry->getGphotoId()->getText() ."<br />\n";
-    			//var_dump($albumEntry);exit(0);
-    			 
-    			$mediaContentArray = $albumEntry->getMediaGroup()->getContent();
-    			$normalSizeImage = $mediaContentArray[0]->getUrl();
-    	
-    			$t = $albumEntry->getMediaGroup()->getThumbnail();
-    			$thumbnailImage = $t[0]->getUrl();
-    	
-    			//var_dump($s[0]->getUrl());exit();
-    	
-    			$normalSizeImageArray[] = $normalSizeImage;
-    			$thumbnailImageArray[] = $thumbnailImage;
-    			//var_dump($contentUrl);
-    		}
-    		 
-    		//exit(0);
     		 
     	}
     	catch (Zend_Gdata_App_HttpException $e) {
-    		
+    		//var_dump($e);exit();
     		if (strpos($e->getMessage(), 'No album found') !== false) {
     			//create album
     			//$service = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
@@ -140,8 +115,47 @@ class ArticleObj extends CI_Model
     	
     	
     	
+    	if($this->upload->do_upload("heroimage")){
+    		$uploadData = $this->upload->data();
+    		
+    		//var_dump($uploadData);exit();
+    		
+    		//upload image
+    		$fd = $gp->newMediaFileSource($uploadData["full_path"]);
+    		$fd->setContentType($uploadData["file_type"]);
+    		
+    		
+    		
+    		$entry = new Zend_Gdata_Photos_PhotoEntry();
+    		$entry->setMediaSource($fd);
+    		$entry->setTitle($gp->newTitle($uploadData["file_name"]));
+    		
+    		
+    		
+    		//$albumEntry = $gp->getAlbumEntry($query);
+    		
+    		//var_dump($albumEntry);exit();
+    		
+    		
+    		$albumEntry = $gp->getAlbumEntry($query);
+    		
+    		//$albumFeed = $gp->getAlbumFeed($query);
+    		
+    		//var_dump($albumFeed);exit();
+    		
+    		$gp->insertPhotoEntry($entry, $albumEntry);
+    		
+    		//set heroImage filename
+    		$data["HeroImage"] = $uploadData["file_name"];
+    		
+    	}
+    	else {
+    		echo $this->upload->display_errors();
+    		exit();
+    	}
     	
-    	
+    	$this->newsdb->where('ArticleID', $articleID);
+    	$this->newsdb->update('articles', $data);
     	
     	
     	var_dump($uploadData);exit();
