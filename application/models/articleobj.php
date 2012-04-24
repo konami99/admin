@@ -60,8 +60,8 @@ class ArticleObj extends CI_Model
     	$CI->zend->load('Zend/Gdata/ClientLogin');
     	 
     	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
-    	$user = "konami99@gmail.com";
-    	$pass = "fdnq4u3a";
+    	$user = "";
+    	$pass = "";
     	 
     	 
     	 
@@ -73,7 +73,7 @@ class ArticleObj extends CI_Model
     		    	
     		$query = new Zend_Gdata_Photos_AlbumQuery();
     	
-    		$query->setUser("konami99@gmail.com");
+    		$query->setUser("");
     		//$query->setThumbsize ("104");
     		$query->setAlbumName("article" . $articleID);
     	
