@@ -64,8 +64,8 @@ class Article extends CI_Controller {
     	//exit();
     	
     	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
-    	$user = "";
-    	$pass = "";
+    	$user = "konami99@gmail.com";
+    	$pass = "fdnq4u3a";
     	
     	
     	
@@ -87,19 +87,16 @@ class Article extends CI_Controller {
     				
     			$query = new Zend_Gdata_Photos_AlbumQuery();
     				
-    			$query->setUser("");
+    			$query->setUser("konami99@gmail.com");
     			$query->setThumbsize ("104");
-    			$query->setAlbumName("auburn");
-    			//$query->setAlbumId("5620271770485001921");
-    				
+    			$query->setAlbumName("article" . $this->uri->segment(3));
+    			    				
     			$albumFeed = $gp->getAlbumFeed($query);
     			foreach ($albumFeed as $albumEntry) {
-    				//echo $albumEntry->title->text . " " . $albumEntry->getGphotoId()->getText() ."<br />\n";
-    				//var_dump($albumEntry);exit(0);
-    	
+    				    	
     				$mediaContentArray = $albumEntry->getMediaGroup()->getContent();
     				
-    				var_dump($albumEntry->getMediaGroup()->getTitle()->getText());exit();
+    				//var_dump($albumEntry->getMediaGroup()->getTitle()->getText());exit();
     				
     				$normalSizeImage = $mediaContentArray[0]->getUrl();
     				
