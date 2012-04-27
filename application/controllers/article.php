@@ -73,8 +73,8 @@ class Article extends CI_Controller {
     	$gp = new Zend_Gdata_Photos($client, "Google-DevelopersGuide-1.0");
     	
     	
-    	//exit();
-    	
+    	$normalSizeImageArray = array();
+    	$thumbnailImageArray = array();
     	//$gp->enableRequestDebugLogging('d:\gp_requests.log');
     	
     	try {
@@ -114,11 +114,12 @@ class Article extends CI_Controller {
     			
     	}
     	catch (Zend_Gdata_App_HttpException $e) {
-    		echo "Error: " . $e->getMessage() . "<br />\n";
+    		//echo "Error: " . $e->getMessage() . "<br />\n";
     		if ($e->getResponse() != null) {
-    			echo "Body: <br />\n" . $e->getResponse()->getBody() .
-    			             "<br />\n"; 
+    			//echo "Body: <br />\n" . $e->getResponse()->getBody() .
+    			             //"<br />\n"; 
     		}
+    		//exit();
     		// In new versions of Zend Framework, you also have the option
     		// to print out the request that was made.  As the request
     		// includes Auth credentials, it's not advised to print out
@@ -126,7 +127,9 @@ class Article extends CI_Controller {
     		// echo "Request: <br />\n" . $e->getRequest() . "<br />\n";
     	}
     	catch (Zend_Gdata_App_Exception $e) {
-    		echo "Error: " . $e->getMessage() . "<br />\n";
+    		//echo "Error: " . $e->getMessage() . "<br />\n";
+    		
+    		//exit();
     	}
     	//exit(0);
     	
@@ -134,6 +137,8 @@ class Article extends CI_Controller {
     	
     	$data['contentData']['normalSizeImageArray'] = $normalSizeImageArray;
     	$data['contentData']['thumbnailImageArray'] = $thumbnailImageArray;
+    	
+    	//exit(0);
     	
     	$this->template->load('layout', 'news/layout', $data);
     }

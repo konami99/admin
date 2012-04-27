@@ -15,7 +15,7 @@ class ArticleObj extends CI_Model
 		
 		$articleID = $this->uri->segment(3);
 		
-		mkdir('./files/article' . $articleID);
+		//mkdir('./files/article' . $articleID);
 		
 		$config['upload_path'] = './files/article' . $articleID;
 		$config['allowed_types'] = 'gif|jpg|png';
@@ -117,16 +117,16 @@ class ArticleObj extends CI_Model
     		
     	}
     	else {
-    		echo $this->upload->display_errors();
-    		exit();
+    		//echo $this->upload->display_errors();
+    		//exit();
     	}
     	
     	$this->newsdb->where('ArticleID', $articleID);
     	$this->newsdb->update('articles', $data);
     	
     	
-    	var_dump($uploadData);exit();
-    	exit();
+    	//var_dump($uploadData);exit();
+    	//exit();
 	}
 	function findAllArticles()
 	{

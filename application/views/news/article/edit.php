@@ -121,6 +121,16 @@
 		
 		echo "HeroImage ", form_input(array('type'=>'file', 'name'=>'heroimage')), br();
 	
+		echo "Upload ", form_input(array('type'=>'file', 'name'=>'upload1')), br();
+		
+		echo "Upload ", form_input(array('type'=>'file', 'name'=>'upload2')), br();
+		
+		echo "Upload ", form_input(array('type'=>'file', 'name'=>'upload3')), br();
+		
+		echo "Upload ", form_input(array('type'=>'file', 'name'=>'upload4')), br();
+		
+		echo "Upload ", form_input(array('type'=>'file', 'name'=>'upload5')), br();
+		
 		echo form_submit('updateButton', 'Save');
 		
 	?>
