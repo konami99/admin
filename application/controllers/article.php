@@ -64,8 +64,8 @@ class Article extends CI_Controller {
     	//exit();
     	
     	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
-    	$user = "konami99@gmail.com";
-    	$pass = "fdnq4u3a";
+    	$user = "";
+    	$pass = "";
     	
     	
     	
@@ -87,7 +87,7 @@ class Article extends CI_Controller {
     				
     			$query = new Zend_Gdata_Photos_AlbumQuery();
     				
-    			$query->setUser("konami99@gmail.com");
+    			$query->setUser("");
     			$query->setThumbsize ("104");
     			$query->setAlbumName("article" . $this->uri->segment(3));
     			    				
