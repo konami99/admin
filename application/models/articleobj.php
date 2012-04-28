@@ -116,17 +116,33 @@ class ArticleObj extends CI_Model
     		$data["HeroImage"] = $imageName;
     		
     	}
-    	else {
-    		//echo $this->upload->display_errors();
-    		//exit();
+    	
+    	for($i=1; $i<=5; $i++){
+    		if($this->upload->do_upload("upload" . $i)){
+    			$uploadData = $this->upload->data();
+    		
+    			$imageName = $uploadData["file_name"];
+    		
+    			//upload image
+    			$fd = $gp->newMediaFileSource($uploadData["full_path"]);
+    			$fd->setContentType($uploadData["file_type"]);
+    		
+    			$entry = new Zend_Gdata_Photos_PhotoEntry();
+    			$entry->setMediaSource($fd);
+    			$entry->setTitle($gp->newTitle($imageName));
+    		
+    			$albumEntry = $gp->getAlbumEntry($query);
+    		
+    			$gp->insertPhotoEntry($entry, $albumEntry);
+    		
+    		}
+    		
     	}
     	
     	$this->newsdb->where('ArticleID', $articleID);
     	$this->newsdb->update('articles', $data);
     	
     	
-    	//var_dump($uploadData);exit();
-    	//exit();
 	}
 	function findAllArticles()
 	{
