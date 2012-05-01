@@ -111,9 +111,19 @@ class ArticleObj extends CI_Model
     		
     		$albumEntry = $gp->getAlbumEntry($query);
     		
-    		$gp->insertPhotoEntry($entry, $albumEntry);
+    		$insertedEntry = $gp->insertPhotoEntry($entry, $albumEntry);
     		
-    		$data["HeroImage"] = $imageName;
+    		$mediaContent = $insertedEntry->getMediaGroup()->getContent();
+    		
+    		$mediaContent = $mediaContent[0];
+    		
+    		$imageURL = $mediaContent->getUrl();
+    		
+			//$imageURL = $mediaContent[0].getUrl();
+			//var_dump($mediaContent->getUrl());
+			//exit();
+    		
+    		$data["HeroImage"] = $imageURL;
     		
     	}
     	
