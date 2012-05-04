@@ -50,14 +50,26 @@
        	} ?>
 	</select><br>
 	<?php
-		if(strcmp($queryResult->row()->FeatureStartDate, "")==0){
-           	$featureStartDate = "";
+		if(strcmp($queryResult->row()->HeroStartDate, "")==0){
+			$heroStartDate = "";
+		}
+		else{
+			$heroStartDate = substr($queryResult->row()->HeroStartDate, 5, 2) . '/' . substr($queryResult->row()->HeroStartDate, 8, 2) . '/' . substr($queryResult->row()->HeroStartDate, 0, 4);
+		}
+	
+		if(strcmp($queryResult->row()->HeroEndDate, "")==0){
+           	$heroEndDate = "";
 		}
 		else{           
-          	$featureStartDate = substr($queryResult->row()->FeatureStartDate, 5, 2) . '/' . substr($queryResult->row()->FeatureStartDate, 8, 2) . '/' . substr($queryResult->row()->FeatureStartDate, 0, 4);
+          	$heroEndDate = substr($queryResult->row()->HeroEndDate, 5, 2) . '/' . substr($queryResult->row()->HeroEndDate, 8, 2) . '/' . substr($queryResult->row()->HeroEndDate, 0, 4);
 		}
                 
-                
+		if(strcmp($queryResult->row()->FeatureStartDate, "")==0){
+			$featureStartDate = "";
+		}
+		else{
+			$featureStartDate = substr($queryResult->row()->FeatureStartDate, 5, 2) . '/' . substr($queryResult->row()->FeatureStartDate, 8, 2) . '/' . substr($queryResult->row()->FeatureStartDate, 0, 4);
+		}      
 		if(strcmp($queryResult->row()->FeatureEndDate, "")==0){
            	$featureEndDate = "";
 		}
@@ -78,9 +90,39 @@
 		else{
           	$subFeatureEndDate = substr($queryResult->row()->SubFeatureEndDate, 5, 2) . '/' . substr($queryResult->row()->SubFeatureEndDate, 8, 2) . '/' . substr($queryResult->row()->SubFeatureEndDate, 0, 4);
 		}
-                
+		
+		//var_dump($queryResult->row()->IsHero == "1");
+		
+		if($queryResult->row()->IsHero == "1"){
+			$isHero = true;
+		}
+		else{	
+			$isHero = false;
+		}
+		
+		if($queryResult->row()->IsFeature == "1"){
+			$isFeature = true;
+		}
+		else{
+			$isFeature = false;
+		}
+		
+		if($queryResult->row()->IsSubFeature == "1"){
+			$isSubFeature = true;
+		}
+		else{
+			$isSubFeature = false;
+		}
+		
+		echo 'IsHero:', form_checkbox(array('id'=>'isHero','name'=>'isHero','value'=>1,'checked'=>$isHero)), br();
+		echo 'Hero Start Date:', form_input(array('id'=>'heroStartDate','name'=>'heroStartDate','value'=>$heroStartDate)), br();
+		echo 'Hero End Date:', form_input(array('id'=>'heroEndDate','name'=>'heroEndDate','value'=>$heroEndDate)), br();
+		
+		echo 'IsFeature:', form_checkbox(array('id'=>'isFeature','name'=>'isFeature','value'=>1,'checked'=>$isFeature)), br();
 		echo 'Feature Start Date:', form_input(array('id'=>'featureStartDate','name'=>'featureStartDate','value'=>$featureStartDate)), br();
 		echo 'Feature End Date:', form_input(array('id'=>'featureEndDate','name'=>'featureEndDate','value'=>$featureEndDate)), br();
+		
+		echo 'IsSubFeature:', form_checkbox(array('id'=>'isSubFeature','name'=>'isSubFeature','value'=>1,'checked'=>$isSubFeature)), br();
 		echo 'SubFeature Start Date:', form_input(array('id'=>'subFeatureStartDate','name'=>'subFeatureStartDate','value'=>$subFeatureStartDate)), br();
 		echo 'SubFeature End Date:', form_input(array('id'=>'subFeatureEndDate','name'=>'subFeatureEndDate','value'=>$subFeatureEndDate)), br();
 		echo 'Summary:', form_textarea(array('name'=>'summary','value'=>$queryResult->row()->Summary)), br();

@@ -25,6 +25,8 @@ class ArticleObj extends CI_Model
 		
 		$this->load->library('upload', $config);
 		
+		//var_dump($this->input->post('isHero'));exit();
+		
 		$data = array(
     		'Title'=>$this->input->post('title'),
     		'ArticleTypeID'=>$this->input->post('articletype'),
@@ -36,7 +38,10 @@ class ArticleObj extends CI_Model
 			'SubFeatureStartDate'=>$this->mySQLDateFormat($this->input->post('subFeatureStartDate')),
 			'SubFeatureEndDate'=>$this->mySQLDateFormat($this->input->post('subFeatureEndDate')),
 			'Summary'=>$this->input->post('summary'),
-			'Content'=>$this->input->post('content')
+			'Content'=>$this->input->post('content'),
+			'IsHero'=>$this->input->post('isHero'),
+			'IsFeature'=>$this->input->post('isFeature'),
+			'IsSubFeature'=>$this->input->post('isSubFeature')
     	);
     	
     	//check if album is created
@@ -50,8 +55,8 @@ class ArticleObj extends CI_Model
     	$CI->zend->load('Zend/Gdata/ClientLogin');
     	 
     	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
-    	$user = "";
-    	$pass = "";
+    	$user = "konami99@gmail.com";
+    	$pass = "fdnq4u3a";
     	 
     	 
     	 
@@ -63,7 +68,7 @@ class ArticleObj extends CI_Model
     		    	
     		$query = new Zend_Gdata_Photos_AlbumQuery();
     	
-    		$query->setUser("");
+    		$query->setUser("konami99@gmail.com");
     		$query->setAlbumName("article" . $articleID);
     	
     		$albumFeed = $gp->getAlbumFeed($query);
