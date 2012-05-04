@@ -33,6 +33,8 @@ class ArticleObj extends CI_Model
 			'AuthorID'=>$this->input->post('author'),
 			'CategoryID'=>$this->input->post('category'),
 			'NameSpace'=>$this->input->post('namespace'),
+			'HeroStartDate'=>$this->mySQLDateFormat($this->input->post('heroStartDate')),
+			'HeroEndDate'=>$this->mySQLDateFormat($this->input->post('heroEndDate')),
 			'FeatureStartDate'=>$this->mySQLDateFormat($this->input->post('featureStartDate')),
 			'FeatureEndDate'=>$this->mySQLDateFormat($this->input->post('featureEndDate')),
 			'SubFeatureStartDate'=>$this->mySQLDateFormat($this->input->post('subFeatureStartDate')),
@@ -176,12 +178,17 @@ class ArticleObj extends CI_Model
 			'AuthorID'=>$this->input->post('author'),
 			'CategoryID'=>$this->input->post('category'),
 			'NameSpace'=>$this->input->post('namespace'),
+			'HeroStartDate'=>$this->mySQLDateFormat($this->input->post('heroStartDate')),
+			'HeroEndDate'=>$this->mySQLDateFormat($this->input->post('heroEndDate')),
 			'FeatureStartDate'=>$this->mySQLDateFormat($this->input->post('featureStartDate')),
 			'FeatureEndDate'=>$this->mySQLDateFormat($this->input->post('featureEndDate')),
 			'SubFeatureStartDate'=>$this->mySQLDateFormat($this->input->post('subFeatureStartDate')),
 			'SubFeatureEndDate'=>$this->mySQLDateFormat($this->input->post('subFeatureEndDate')),
 			'Summary'=>$this->input->post('summary'),
-			'Content'=>$this->input->post('content')
+			'Content'=>$this->input->post('content'),
+			'IsHero'=>$this->input->post('isHero'),
+			'IsFeature'=>$this->input->post('isFeature'),
+			'IsSubFeature'=>$this->input->post('isSubFeature')
 		);
 		$this->newsdb->insert('articles', $data);
 	}

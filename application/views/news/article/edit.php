@@ -184,6 +184,8 @@
 
 <script type="text/javascript">
     $(function(){
+    	$( "#heroStartDate" ).datepicker();
+    	$( "#heroEndDate" ).datepicker();
     	$( "#featureStartDate" ).datepicker();
     	$( "#featureEndDate" ).datepicker();
     	$( "#subFeatureStartDate" ).datepicker();

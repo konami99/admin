@@ -40,8 +40,15 @@
                 	} ?>
                 </select><br>
                 <?php
+                echo 'IsHero:', form_checkbox(array('id'=>'isHero','name'=>'isHero','value'=>1,'checked'=>false)), br();
+                echo 'Hero Start Date:', form_input(array('id'=>'heroStartDate','name'=>'heroStartDate','value'=>'')), br();
+                echo 'Hero End Date:', form_input(array('id'=>'heroEndDate','name'=>'heroEndDate','value'=>'')), br();
+                
+				echo 'IsFeature:', form_checkbox(array('id'=>'isFeature','name'=>'isFeature','value'=>1,'checked'=>false)), br();
                 echo 'Feature Start Date:', form_input(array('id'=>'featureStartDate','name'=>'featureStartDate','value'=>'')), br();
                 echo 'Feature End Date:', form_input(array('id'=>'featureEndDate','name'=>'featureEndDate','value'=>'')), br();
+                
+                echo 'IsSubFeature:', form_checkbox(array('id'=>'isSubFeature','name'=>'isSubFeature','value'=>1,'checked'=>false)), br();
                 echo 'SubFeature Start Date:', form_input(array('id'=>'subFeatureStartDate','name'=>'subFeatureStartDate','value'=>'')), br();
                 echo 'SubFeature End Date:', form_input(array('id'=>'subFeatureEndDate','name'=>'subFeatureEndDate','value'=>'')), br();
                 echo 'Summary:', form_textarea(array('name'=>'summary','value'=>'')), br();
@@ -58,10 +65,12 @@
 
 <script type="text/javascript">
     $(function(){
+    	$( "#heroStartDate" ).datepicker();
+    	$( "#heroEndDate" ).datepicker();
     	$( "#featureStartDate" ).datepicker();
     	$( "#featureEndDate" ).datepicker();
-    	$( "#startDate" ).datepicker();
-    	$( "#endDate" ).datepicker();
+    	$( "#subFeatureStartDate" ).datepicker();
+    	$( "#subFeatureEndDate" ).datepicker();
     	CKEDITOR.replace( 'summary' );
     	CKEDITOR.replace( 'content' );
     });
