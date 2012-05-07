@@ -15,7 +15,7 @@ class ArticleObj extends CI_Model
 		
 		$articleID = $this->uri->segment(3);
 		
-		//mkdir('./files/article' . $articleID);
+		mkdir('./files/article' . $articleID);
 		
 		$config['upload_path'] = './files/article' . $articleID;
 		$config['allowed_types'] = 'gif|jpg|png';
