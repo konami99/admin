@@ -8,6 +8,7 @@ class ArticleObj extends CI_Model
 		parent::__construct();
 		$this->load->helper('url');
         $this->load->library('session');
+        //$this->load->library('image_lib');
 		$this->newsdb = $this->load->database('news', true);
 	}
 	function update()
@@ -21,7 +22,7 @@ class ArticleObj extends CI_Model
 		
 		$config['upload_path'] = './files/article' . $articleID;
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
+		$config['max_size']	= '1000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
 		
@@ -59,8 +60,8 @@ class ArticleObj extends CI_Model
     	$CI->zend->load('Zend/Gdata/ClientLogin');
     	 
     	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
-    	$user = "konami99@hotmail.com";
-    	$pass = "fdnq4u3a";
+    	$user = "";
+    	$pass = "";
     	 
     	 
     	 
@@ -72,7 +73,7 @@ class ArticleObj extends CI_Model
     		    	
     		$query = new Zend_Gdata_Photos_AlbumQuery();
     	
-    		$query->setUser("konami99@hotmail.com");
+    		$query->setUser("");
     		$query->setAlbumName("article" . $articleID);
     	
     		$albumFeed = $gp->getAlbumFeed($query);
@@ -107,6 +108,19 @@ class ArticleObj extends CI_Model
     	
     	if($this->upload->do_upload("heroimage")){
     		$uploadData = $this->upload->data();
+    		
+    		//resize image here
+    		
+    		$imageconfig['image_library'] = 'gd2';
+    		$imageconfig['source_image']	= $uploadData["full_path"];
+    		$imageconfig['maintain_ratio'] = TRUE;
+    		$imageconfig['width'] = 40;
+    		$imageconfig['height'] = 30;
+    		$this->load->library('image_lib', $imageconfig);
+    		
+    		$this->image_lib->resize();
+    		
+    		//var_dump($uploadData["full_path"]);exit();
     		
     		$imageName = $uploadData["raw_name"] . "_" . date('U') . $uploadData["file_ext"];
     		
