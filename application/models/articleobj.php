@@ -15,7 +15,7 @@ class ArticleObj extends CI_Model
 		
 		$articleID = $this->uri->segment(3);
 		
-		if(is_dir('./files/article' . $articleID)){
+		if(!is_dir('./files/article' . $articleID)){
 			mkdir('./files/article' . $articleID);
 		}
 		
@@ -59,8 +59,8 @@ class ArticleObj extends CI_Model
     	$CI->zend->load('Zend/Gdata/ClientLogin');
     	 
     	$serviceName = Zend_Gdata_Photos::AUTH_SERVICE_NAME;
-    	$user = "";
-    	$pass = "";
+    	$user = "konami99@hotmail.com";
+    	$pass = "fdnq4u3a";
     	 
     	 
     	 
@@ -72,7 +72,7 @@ class ArticleObj extends CI_Model
     		    	
     		$query = new Zend_Gdata_Photos_AlbumQuery();
     	
-    		$query->setUser("");
+    		$query->setUser("konami99@hotmail.com");
     		$query->setAlbumName("article" . $articleID);
     	
     		$albumFeed = $gp->getAlbumFeed($query);
