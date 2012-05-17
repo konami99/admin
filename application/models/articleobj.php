@@ -22,9 +22,9 @@ class ArticleObj extends CI_Model
 		
 		$config['upload_path'] = './files/article' . $articleID;
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '1000';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
+		//$config['max_size']	= '1000';
+		//$config['max_width']  = '1024';
+		//$config['max_height']  = '768';
 		
 		$this->load->library('upload', $config);
 		
@@ -114,8 +114,8 @@ class ArticleObj extends CI_Model
     		$imageconfig['image_library'] = 'gd2';
     		$imageconfig['source_image']	= $uploadData["full_path"];
     		$imageconfig['maintain_ratio'] = TRUE;
-    		$imageconfig['width'] = 40;
-    		$imageconfig['height'] = 30;
+    		$imageconfig['width'] = 240;
+    		$imageconfig['height'] = 200;
     		$this->load->library('image_lib', $imageconfig);
     		
     		$this->image_lib->resize();
@@ -153,6 +153,18 @@ class ArticleObj extends CI_Model
     	for($i=1; $i<=5; $i++){
     		if($this->upload->do_upload("upload" . $i)){
     			$uploadData = $this->upload->data();
+    			
+    			$imageconfig['image_library'] = 'gd2';
+    			$imageconfig['source_image']	= $uploadData["full_path"];
+    			$imageconfig['maintain_ratio'] = TRUE;
+    			$imageconfig['width'] = 240;
+    			$imageconfig['height'] = 200;
+    			$this->load->library('image_lib', $imageconfig);
+    			
+    			$this->image_lib->resize();
+    			
+    			
+    			
     		
     			$imageName = $uploadData["file_name"];
     		
