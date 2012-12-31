@@ -60,8 +60,8 @@ $db['www']['swap_pre'] = '';
 $db['www']['autoinit'] = TRUE;
 $db['www']['stricton'] = FALSE;
 */
-$db['news']['hostname'] = '127.0.0.1';
-$db['news']['username'] = 'root';
+$db['news']['hostname'] = 'db1.cidxyfa666go.us-west-2.rds.amazonaws.com';
+$db['news']['username'] = 'konami99';
 $db['news']['password'] = 'fdnq4u3A';
 $db['news']['database'] = 'richard1_news';
 $db['news']['dbdriver'] = 'mysql';
